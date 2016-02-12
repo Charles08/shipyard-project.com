@@ -66,7 +66,7 @@ $> docker run \
     --name shipyard-proxy \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -e PORT=2375 \
-    ehazlett/docker-proxy:latest
+    shipyard/docker-proxy:latest
 ```
 
 No
