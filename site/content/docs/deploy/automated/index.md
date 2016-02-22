@@ -11,6 +11,9 @@ This will deploy Shipyard using the current Docker host.
 Once deployed, the script will output the URL to connect along with credential
 information.
 
+Note: this will expose the Docker Engine on port 2375.  It is recommended
+to use TLS if this node will be accessible outside a secure network.
+
 ```bash
 curl -sSL https://shipyard-project.com/deploy | bash -s
 ```
