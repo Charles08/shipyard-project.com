@@ -69,8 +69,6 @@ $> docker run \
     shipyard/docker-proxy:latest
 ```
 
-No
-
 ## Swarm Manager
 
 This will run a Swarm container configured to manage.
@@ -119,4 +117,3 @@ $> docker run \
 
 Once the controller is launched and the controller has initialized the datastore
 you should be able to login via http://[ip-of-host]:8080.
-
