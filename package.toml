@@ -1,0 +1,43 @@
+id = "shipyard-project"
+version = "0.1"
+base_package = "ejh.ubuntu"
+
+[build]
+  script = '''
+#!/bin/bash
+echo "----> installing packages"
+apt-get update
+apt-get install -y --no-install-recommends ruby ruby-dev build-essential git curl
+gem install --no-ri --no-rdoc bundler
+rm -rf /var/lib/apt
+
+echo "----> installing hugo"
+curl -s -L -o /tmp/hugo.tar.gz https://github.com/spf13/hugo/releases/download/v0.14/hugo_0.14_linux_amd64.tar.gz
+tar xzf /tmp/hugo.tar.gz --strip-components=1 -C /bin
+ln -s /bin/hugo_0.14_linux_amd64 /bin/hugo
+rm -rf /tmp/hugo*
+
+echo "----> building site"
+cp -rf /run/context/site /site
+cd /site && hugo -v
+mv public /public
+
+echo "----> building api docs"
+cp -r /run/context/slate /slate
+rm -f /slate/Gemfile.lock
+rm -rf /slate/source
+cp -rf /run/context/apidocs /slate/source
+cd /slate && bundle install && bundle exec middleman build --verbose
+cp -rf /slate/build /public/docs/api
+
+echo "----> building app"
+cp /run/context/app/app /app
+
+echo "----> done."
+'''
+
+[process]
+    uid = 0
+    args = [
+        "/app",
+    ]
