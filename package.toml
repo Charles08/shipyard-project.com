@@ -1,9 +1,8 @@
-id = "shipyard-project"
-version = "0.1"
-base_package = "ejh.ubuntu"
+id = "shipyard-project.com"
+base = "debian:sid"
 
 [build]
-  script = '''
+script = '''
 #!/bin/bash
 echo "----> installing packages"
 apt-get update
@@ -35,9 +34,3 @@ cp /run/context/app/app /app
 
 echo "----> done."
 '''
-
-[process]
-    uid = 0
-    args = [
-        "/app",
-    ]
